@@ -48,8 +48,8 @@ describe('tieneCaracteresEspeciales', () => {
 
 describe('tieneLongitudMinima', () => {    
     it.each([
-        [ "2", {esValida: false, error: "La clave ha de tener una longitud mínima de 8 carácteres."} ],
-        [ "20", {esValida: false, error: "La clave ha de tener una longitud mínima de 8 carácteres."} ],
+        [ "12345678", { esValida: true } ],
+        [ "20sadfkjlfkasdjfl", { esValida: true } ],
         [ "1", {esValida: false, error: "La clave ha de tener una longitud mínima de 8 carácteres."} ],
         [ "5", {esValida: false, error: "La clave ha de tener una longitud mínima de 8 carácteres."} ]
     ]) ("Si la contraseña es %s, el programa debería de devolver %s", (clave: string, resultadoEsperado) => {
@@ -63,10 +63,10 @@ describe('tieneLongitudMinima', () => {
 
 describe('tieneNombreUsuario', () => {    
     it.each([
-        [ "user", "2", {esValida: false, error: "La clave no debe contener el nombre del usuario."} ],
-        [ "user", "20", {esValida: false, error: "La clave no debe contener el nombre del usuario."} ],
-        [ "user", "1", {esValida: false, error: "La clave no debe contener el nombre del usuario."} ],
-        [ "user", "5", {esValida: false, error: "La clave no debe contener el nombre del usuario."} ]
+        [ "user1", "ssdfa", {esValida: true} ],
+        [ "pacman", "pacman", {esValida: false, error: "La clave no debe contener el nombre del usuario."} ],
+        [ "tales", "sadf", {esValida: true }],
+        [ "mia", "123mia", {esValida: false, error: "La clave no debe contener el nombre del usuario."} ]
     ]) ("Si la contraseña es %s, el programa debería de devolver %s", (nombreUsuario: string, clave: string, resultadoEsperado) => {
         // Act
         const resultado = tieneNombreUsuario(nombreUsuario, clave);

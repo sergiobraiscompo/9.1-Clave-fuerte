@@ -2,15 +2,22 @@ import { ValidacionClave } from "./constantes";
 
 // La clave debe de tener mayúsculas y minúsculas.
 export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
-    const tieneMayusminus = (clave: string): boolean => { 
-        clave.
+    
+    const tieneMayusminus = (clave: string): boolean => {
+        let posicion = 0;
+
+        while (posicion <= clave.length) {
+            const caracter = clave[posicion];
+            console.log(caracter);
+        }
+        
         return false;
     };
-
-    if (tieneMayusminus(clave) && Number.isNaN(clave)) {
-        return { esValida: true };
-    } else {
+    
+    if (Number(clave)) {
         return {esValida: false, error: "La clave tiene que contener mayúsculas y minúsculas."};
+    } else {
+        return { esValida: tieneMayusminus(clave) };
     }
 };
 
@@ -30,12 +37,12 @@ export const tieneNumeros = (clave: string): ValidacionClave => {
 
 // La clave debe de tener caracteres especiales (@,#,+, _, ...)
 export const tieneCaracteresEspeciales = (clave: string): ValidacionClave => {
-    const contieneNumeros = (clave: string): boolean => { 
-        clave
+    const contieneCaracteresEspeciales = (clave: string): boolean => { 
+        clave 
         return false;
     };
 
-    if (contieneNumeros(clave)) {
+    if (contieneCaracteresEspeciales(clave)) {
         return { esValida: true };
     } else {
         return {esValida: false, error: "La clave ha de contener símbolos especiales."};
@@ -56,9 +63,8 @@ export const tieneNombreUsuario = (nombreUsuario: string, clave: string): Valida
     nombreUsuario
     clave
     const noContieneNombreUsuario = (nombreUsuario: string, clave: string): boolean => { 
-        clave
-        nombreUsuario
-        return false;
+        const contieneNombreUsuario: boolean = clave.includes(nombreUsuario);
+        return !contieneNombreUsuario;
     };
 
     if (noContieneNombreUsuario(nombreUsuario, clave)) {
@@ -70,15 +76,9 @@ export const tieneNombreUsuario = (nombreUsuario: string, clave: string): Valida
 
 // La clave no debe de contener palabras comunes (le pasaremos un array de palabras comunes).
 export const tienePalabrasComunes = (clave: string, commonPasswords: string[]): ValidacionClave => {
-    commonPasswords
-    clave
-    const noContienePalabrasComunes = (nombreUsuario: string, clave: string[]): boolean => { 
-        clave
-        nombreUsuario
-        return false;
-    };
+    const contienePalabraComun: boolean = commonPasswords.includes(clave);
 
-    if (noContienePalabrasComunes(clave, commonPasswords)) {
+    if (contienePalabraComun) {
         return { esValida: true };
     } else {
         return {esValida: false, error: "La clave no debe tener palabras comunes."};
