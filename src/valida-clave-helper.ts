@@ -3,11 +3,11 @@ import { ValidacionClave } from "./constantes";
 // La clave debe de tener mayúsculas y minúsculas.
 export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
     const tieneMayusminus = (clave: string): boolean => { 
-        clave
+        clave.
         return false;
     };
 
-    if (tieneMayusminus(clave)) {
+    if (tieneMayusminus(clave) && Number.isNaN(clave)) {
         return { esValida: true };
     } else {
         return {esValida: false, error: "La clave tiene que contener mayúsculas y minúsculas."};
