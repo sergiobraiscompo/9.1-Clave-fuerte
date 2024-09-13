@@ -1,4 +1,4 @@
-import { ValidacionClave } from "./constantes";
+import { commonPasswords, ValidacionClave } from "./constantes";
 import { tieneCaracteresEspeciales, tieneLongitudMinima, tieneMayusculasYMinusculas, tieneNombreUsuario, tieneNumeros, tienePalabrasComunes } from "./valida-clave-helper";
 
 
@@ -15,3 +15,5 @@ export const validarClave = (nombreUsuario: string, clave: string, commonPasswor
     ? {esValida: true}
     : {esValida: false, error: "La clave no es válida."}
 };
+
+console.log(validarClave("user", "password", commonPasswords))

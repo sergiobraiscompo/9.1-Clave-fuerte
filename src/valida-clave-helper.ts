@@ -2,25 +2,15 @@ import { ValidacionClave } from "./constantes";
 
 // La clave debe de tener mayúsculas y minúsculas.
 export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
+    const contieneMayus = clave => clave === clave.toUpperCase();
+    const contieneMinus = false;
     
-    const tieneMayusminus = (clave: string): boolean => {
-        let posicion = 0;
-
-        while (posicion <= clave.length) {
-            const caracter = clave[posicion];
-            console.log(caracter);
-        }
-        
-        return false;
-    };
     
-    if (Number(clave)) {
-        return {esValida: false, error: "La clave tiene que contener mayúsculas y minúsculas."};
-    } else {
-        return { esValida: tieneMayusminus(clave) };
-    }
-};
-
+    return (contieneMayus || contieneMinus)
+    ? { esValida: true }
+    : {esValida: false, error: "La clave tiene que contener mayúsculas y minúsculas."};
+}
+    
 // La clave debe de tener números.
 export const tieneNumeros = (clave: string): ValidacionClave => {
     const contieneNumeros = (clave: string): boolean => { 
@@ -60,8 +50,6 @@ export const tieneLongitudMinima = (clave: string): ValidacionClave => {
 
 // La clave no debe tener el nombre del usuario.
 export const tieneNombreUsuario = (nombreUsuario: string, clave: string): ValidacionClave => {
-    nombreUsuario
-    clave
     const noContieneNombreUsuario = (nombreUsuario: string, clave: string): boolean => { 
         const contieneNombreUsuario: boolean = clave.includes(nombreUsuario);
         return !contieneNombreUsuario;
