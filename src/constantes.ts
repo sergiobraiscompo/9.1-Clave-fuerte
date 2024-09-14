@@ -62,5 +62,5 @@ export interface ValidacionClave {
 // Utilizada en contieneMayusMinus
 export interface valorCaracter {
   caracter: string,
-  characterCase: string
+  characterType: string
 }

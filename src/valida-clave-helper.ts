@@ -3,10 +3,12 @@ import { ValidacionClave, valorCaracter } from "./constantes";
 // La clave debe de tener mayúsculas y minúsculas.
 export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
     const valorCaracteres: valorCaracter[] = [];
+    const symbolsList = "!@#$%^&*()-_=+[{]};:'\",<.>/?\\|";
 
-    for (const caracter of clave) {
-        if(typeof caracter. === 'symbol' || parseInt(caracter)) {
-            break;
+    for (let caracter of clave) {
+        // If para el caso especial 0
+        if (caracter == '0' || Number(caracter) || symbolsList.includes(caracter)) {
+            continue;
         } else {
             let characterCase = "";
 
@@ -14,14 +16,14 @@ export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
             ? characterCase = "upper"
             : characterCase = "lower"
 
-            valorCaracteres.push({caracter: caracter, characterCase: characterCase});
+            valorCaracteres.push({caracter: caracter, characterType: characterCase});
         }
     }
 
-    console.log(valorCaracteres)
+    console.log(valorCaracteres);
     
-    const todasMayus = valorCaracteres.every((caracter) => caracter.characterCase === "upper");
-    const todasMinus = valorCaracteres.every((caracter) => caracter.characterCase === "lower");
+    const todasMayus = valorCaracteres.every((caracter) => caracter.characterType === "upper");
+    const todasMinus = valorCaracteres.every((caracter) => caracter.characterType === "lower");
 
     return (todasMayus || todasMinus)
     ? { esValida: false, error: "La clave tiene que contener mayúsculas y minúsculas." }
