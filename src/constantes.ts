@@ -58,3 +58,9 @@ export interface ValidacionClave {
   esValida: boolean;
   error?: string;
 }
+
+// Utilizada en contieneMayusMinus
+export interface valorCaracter {
+  caracter: string,
+  characterCase: string
+}
