@@ -19,8 +19,6 @@ export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
             valorCaracteres.push({caracter: caracter, characterType: characterCase});
         }
     }
-
-    console.log(valorCaracteres);
     
     const todasMayus = valorCaracteres.every((caracter) => caracter.characterType === "upper");
     const todasMinus = valorCaracteres.every((caracter) => caracter.characterType === "lower");
@@ -32,30 +30,36 @@ export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
     
 // La clave debe de tener números.
 export const tieneNumeros = (clave: string): ValidacionClave => {
-    const contieneNumeros = (clave: string): boolean => { 
-        clave
-        return false;
-    };
+    let hayNumero = false;
 
-    if (contieneNumeros(clave)) {
-        return { esValida: true };
-    } else {
-        return {esValida: false, error: "La clave tiene que contener números."};
+    for (let caracter of clave) {
+        // If para el caso especial 0
+        if (caracter == '0' || Number(caracter)) {
+            hayNumero = true;
+            break;
+        }
     }
-};
+
+    return hayNumero
+    ? { esValida: true }
+    : { esValida: false, error: "La clave tiene que contener números." }
+}
 
 // La clave debe de tener caracteres especiales (@,#,+, _, ...)
 export const tieneCaracteresEspeciales = (clave: string): ValidacionClave => {
-    const contieneCaracteresEspeciales = (clave: string): boolean => { 
-        clave 
-        return false;
-    };
+    let haySimbolo = false;
+    const symbolsList = "!@#$%^&*()-_=+[{]};:'\",<.>/?\\|";
 
-    if (contieneCaracteresEspeciales(clave)) {
-        return { esValida: true };
-    } else {
-        return {esValida: false, error: "La clave ha de contener símbolos especiales."};
+    for (let caracter of clave) {
+        // If para el caso especial 0
+        if (symbolsList.includes(caracter)) {
+            haySimbolo = true;
+            break;
+        }
     }
+    return haySimbolo
+    ? { esValida: true }
+    : { esValida: false, error: "La clave ha de contener símbolos especiales." };
 };
 
 // La clave debe de tener una longitud mínima de 8 caracteres.
@@ -83,11 +87,16 @@ export const tieneNombreUsuario = (nombreUsuario: string, clave: string): Valida
 
 // La clave no debe de contener palabras comunes (le pasaremos un array de palabras comunes).
 export const tienePalabrasComunes = (clave: string, commonPasswords: string[]): ValidacionClave => {
-    const contienePalabraComun: boolean = commonPasswords.includes(clave);
+    let contienePalabraComun = false;
 
-    if (contienePalabraComun) {
-        return { esValida: true };
-    } else {
-        return {esValida: false, error: "La clave no debe tener palabras comunes."};
+    for (const password of commonPasswords) {
+        if (clave.includes(password)) {
+            contienePalabraComun = true;
+            break;
+        }
     }
+
+    return contienePalabraComun
+    ? { esValida: false, error: "La clave no debe tener palabras comunes." }
+    : { esValida: true };
 };
