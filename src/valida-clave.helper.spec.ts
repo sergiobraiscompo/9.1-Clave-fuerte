@@ -79,9 +79,9 @@ describe('tieneNombreUsuario', () => {
 describe('tienePalabrasComunes', () => {    
     it.each([
         [ "kingslayer", {esValida: true} ],
-        [ "sunshine", {esValida: false, error: "La clave no debe tener palabras comunes."} ],
-        [ "password", {esValida: false, error: "La clave no debe tener palabras comunes."} ],
-        [ "qwerty", {esValida: false, error: "La clave no debe tener palabras comunes."} ]
+        [ "sunshine", {esValida: false, error: "Evita usar palabras o combinaciones de números comunes."} ],
+        [ "password", {esValida: false, error: "Evita usar palabras o combinaciones de números comunes."} ],
+        [ "qwerty", {esValida: false, error: "Evita usar palabras o combinaciones de números comunes."} ]
     ]) ("Si la contraseña es %s, el programa debería de devolver %s", (clave: string, resultadoEsperado) => {
         // Act
         const resultado = tienePalabrasComunes(clave, commonPasswords);

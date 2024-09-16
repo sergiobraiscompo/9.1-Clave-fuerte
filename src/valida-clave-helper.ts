@@ -34,7 +34,7 @@ export const tieneNumeros = (clave: string): ValidacionClave => {
 
     for (let caracter of clave) {
         // If para el caso especial 0
-        if (caracter == '0' || Number(caracter)) {
+        if (caracter == '0' || !isNaN(Number(caracter))) {
             hayNumero = true;
             break;
         }
@@ -73,16 +73,11 @@ export const tieneLongitudMinima = (clave: string): ValidacionClave => {
 
 // La clave no debe tener el nombre del usuario.
 export const tieneNombreUsuario = (nombreUsuario: string, clave: string): ValidacionClave => {
-    const noContieneNombreUsuario = (nombreUsuario: string, clave: string): boolean => { 
-        const contieneNombreUsuario: boolean = clave.includes(nombreUsuario);
-        return !contieneNombreUsuario;
-    };
+        const contieneNombreUsuario: boolean = clave.includes(nombreUsuario.toLowerCase()) || clave.includes(nombreUsuario.toUpperCase());
 
-    if (noContieneNombreUsuario(nombreUsuario, clave)) {
-        return { esValida: true };
-    } else {
-        return {esValida: false, error: "La clave no debe contener el nombre del usuario."};
-    }
+        return contieneNombreUsuario 
+        ? { esValida: false, error: "La clave no debe contener el nombre del usuario." }
+        : { esValida: true };
 };
 
 // La clave no debe de contener palabras comunes (le pasaremos un array de palabras comunes).
@@ -97,6 +92,6 @@ export const tienePalabrasComunes = (clave: string, commonPasswords: string[]): 
     }
 
     return contienePalabraComun
-    ? { esValida: false, error: "La clave no debe tener palabras comunes." }
+    ? { esValida: false, error: "Evita usar palabras o combinaciones de números comunes." }
     : { esValida: true };
 };
