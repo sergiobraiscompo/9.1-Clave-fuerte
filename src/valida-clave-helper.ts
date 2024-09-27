@@ -1,4 +1,5 @@
-import { ValidacionClave, valorCaracter } from "./constantes";
+import { commonPasswords, ValidacionClave, valorCaracter } from "./constantes";
+import { validarClave } from "./valida-clave";
 
 // La clave debe de tener mayúsculas y minúsculas.
 export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
@@ -73,11 +74,14 @@ export const tieneLongitudMinima = (clave: string): ValidacionClave => {
 
 // La clave no debe tener el nombre del usuario.
 export const tieneNombreUsuario = (nombreUsuario: string, clave: string): ValidacionClave => {
-        const contieneNombreUsuario: boolean = clave.includes(nombreUsuario.toLowerCase()) || clave.includes(nombreUsuario.toUpperCase());
+    const claveMinuscula = clave.toLowerCase();
+    const contieneNombreUsuario = claveMinuscula.includes(nombreUsuario.toLowerCase());
 
-        return contieneNombreUsuario 
-        ? { esValida: false, error: "La clave no debe contener el nombre del usuario." }
-        : { esValida: true };
+    console.log(claveMinuscula, nombreUsuario, contieneNombreUsuario)
+
+    return contieneNombreUsuario
+    ? { esValida: false, error: "La clave no debe contener el nombre del usuario." }
+    : { esValida: true };
 };
 
 // La clave no debe de contener palabras comunes (le pasaremos un array de palabras comunes).
@@ -85,7 +89,7 @@ export const tienePalabrasComunes = (clave: string, commonPasswords: string[]): 
     let contienePalabraComun = false;
 
     for (const password of commonPasswords) {
-        if (clave.includes(password)) {
+        if (clave.localeCompare(password)) {
             contienePalabraComun = true;
             break;
         }
