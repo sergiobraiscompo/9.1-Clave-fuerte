@@ -11,6 +11,7 @@ export const validarClave = (nombreUsuario: string, clave: string, commonPasswor
     const contieneNombreUsuario = tieneNombreUsuario(nombreUsuario, clave);
     const contienePalabrasComunes = tienePalabrasComunes(clave, commonPasswords);
     
+
     if (!tieneMayusMinus.esValida) {
         if (tieneMayusMinus.error) {
             return {esValida: tieneMayusMinus.esValida, error: tieneMayusMinus.error}
@@ -35,17 +36,18 @@ export const validarClave = (nombreUsuario: string, clave: string, commonPasswor
         }
     };
 
-    if (contieneNombreUsuario.esValida) {
+    if (!contieneNombreUsuario.esValida) {
         if (contieneNombreUsuario.error) {
             return {esValida: contieneNombreUsuario.esValida, error: contieneNombreUsuario.error}
         }
     };
 
-    if (contienePalabrasComunes.esValida) {
+    if (!contienePalabrasComunes.esValida) {
         if (contienePalabrasComunes.error) {
             return {esValida: contienePalabrasComunes.esValida, error: contienePalabrasComunes.error}
         }
     };
+
     
     return {esValida: true}
 };
